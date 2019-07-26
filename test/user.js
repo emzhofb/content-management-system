@@ -16,7 +16,9 @@ describe('Users', () => {
         expect(res).to.have.status(200);
         expect(res).to.be.json;
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.be.a('string');
+        expect(res.body.data.email).to.be.a('string');
+        expect(res.body).to.have.property('token');
+        expect(res.body.token).to.be.a('string');
       });
   });
 });
@@ -31,7 +33,7 @@ describe('Users', () => {
         expect(res).to.have.status(400);
         expect(res).to.be.json;
         expect(res.body).to.have.property('message');
-        expect(res.body.data).to.be.a('string');
+        expect(res.body.message).to.be.a('string');
       });
   });
 });
