@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 let token;
 
 describe('Register', () => {
-  it('Should be logged in and got the token', () => {
+  it('Should be registered and got the token', () => {
     chai
       .request(app)
       .post('/api/users/register')
@@ -29,7 +29,7 @@ describe('Register', () => {
       });
   });
 
-  it("Shouldn't logged in and token is null", () => {
+  it("Shouldn't registered and token is null", () => {
     chai
       .request(app)
       .post('/api/users/register')
@@ -44,6 +44,44 @@ describe('Register', () => {
         expect(res.body).to.have.property('message');
         expect(res.body.message).to.be.a('string');
         expect(res.body.message).to.equal('Invalid register.');
+      });
+  });
+});
+
+describe('Login', () => {
+  it('Should be logged in and got the token', () => {
+    chai
+      .request(app)
+      .post('api/users/login')
+      .send({
+        email: 'ikhdamuhammad@gmail.com',
+        password: '1234'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.have.property('data');
+        expect(res.body.data.email).to.be.a('string');
+        expect(res.body).to.have.property('token');
+        expect(res.body.token).to.be.a('string');
+        token = res.body.token;
+      });
+  });
+
+  it("Shouldn't be logged in and token is null", () => {
+    chai
+      .request(app)
+      .post('api/users/login')
+      .send({
+        email: undefined,
+        password: undefined
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(403);
+        expect(res).to.be.json;
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.be.a('string');
+        expect(res.body.message).to.equal('Invalid login.');
       });
   });
 });
