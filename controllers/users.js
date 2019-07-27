@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
-let token;
 
 exports.postRegister = (req, res, next) => {
   const { email, password, retypepassword } = req.body;
+  
+  let token;
 
   if (email && password == retypepassword) {
     token = jwt.sign(
