@@ -1,10 +1,13 @@
 const jwt = require('jsonwebtoken');
 
 const checkAuth = (req, res, next) => {
-  const decoded = jwt.verify(req.body.token, 'secret');
+  const { token } = req.body;
 
-  if (decoded) next();
-  else res.status(401).json({ message: 'Invalid token' });
+  jwt.verify(token, 'secret', (err, decoded) => {
+    if (err) return res.status(401).json({ message: 'Invalid token.' });
+
+    next();
+  });
 };
 
 module.exports = { checkAuth };

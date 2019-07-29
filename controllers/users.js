@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 exports.postRegister = (req, res, next) => {
   const { email, password, retypepassword } = req.body;
-  
+
   let token;
 
   if (email && password == retypepassword) {
@@ -14,22 +14,22 @@ exports.postRegister = (req, res, next) => {
       { expiresIn: '1h' }
     );
 
-    res.status(200).json({
+    return res.status(200).json({
       data: {
         email: email
       },
       token: token
     });
-  } else {
-    res.status(400).json({ message: 'Invalid register.' });
   }
+
+  res.status(400).json({ message: 'Invalid register.' });
 };
 
 exports.postLogin = (req, res, next) => {
   const { email, password } = req.body;
 
   let token;
-  
+
   if (email && password) {
     token = jwt.sign(
       {
@@ -39,15 +39,15 @@ exports.postLogin = (req, res, next) => {
       { expiresIn: '1h' }
     );
 
-    res.status(200).json({
+    return res.status(200).json({
       data: {
         email: email
       },
       token: token
     });
-  } else {
-    res.status(403).json({ message: 'Invalid login.' });
   }
+
+  res.status(403).json({ message: 'Invalid login.' });
 };
 
 exports.postCheck = (req, res, next) => {
@@ -62,7 +62,11 @@ exports.postCheck = (req, res, next) => {
 
 exports.getDestroy = (req, res, next) => {
   let { token } = req.body;
-  token = null;
 
-  res.status(200).json({ logout: true });
+  jwt.verify(token, 'secret', (err, decoded) => {
+    if (err) return res.status(401).json({ message: 'Invalid token.' });
+
+    token = null;
+    res.status(200).json({ logout: true });
+  });
 };
