@@ -51,7 +51,7 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.postCheck = (req, res, next) => {
-  const { token } = req.body;
+  const { token } = req.headers;
 
   jwt.verify(token, 'secret', (err, decoded) => {
     if (err) return res.status(401).json({ message: 'Invalid token.' });

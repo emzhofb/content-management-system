@@ -99,7 +99,7 @@ describe('Check', () => {
         chai
           .request(app)
           .post('/api/users/check')
-          .send({ token: res.body.token })
+          .set('token', res.body.token)
           .end((error, response) => {
             expect(response).to.have.status(200);
             expect(response).to.be.json;
@@ -115,7 +115,7 @@ describe('Check', () => {
     chai
       .request(app)
       .post('/api/users/check')
-      .send({ token: null })
+      .set('token', null)
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res).to.be.json;
