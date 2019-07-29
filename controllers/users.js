@@ -61,7 +61,7 @@ exports.postCheck = (req, res, next) => {
 };
 
 exports.getDestroy = (req, res, next) => {
-  let { token } = req.body;
+  let { token } = req.headers;
 
   jwt.verify(token, 'secret', (err, decoded) => {
     if (err) return res.status(401).json({ message: 'Invalid token.' });
