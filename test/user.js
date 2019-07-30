@@ -1,18 +1,60 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
+const User = require('../models/user');
 const app = require('../app');
 const expect = chai.expect;
 
 chai.use(chaiHttp);
 
 describe('Register', () => {
-  it('Should be registered and got the token', done => {
+  // first, we need to drop user collection
+  User.collection.drop();
+
+  // before we test, we will give one data to mongodb
+  beforeEach(done => {
+    const user = new User({
+      email: 'ikhdamuhammad@gmail.com',
+      password: '1234'
+    });
+
+    user
+      .save()
+      .then(() => done())
+      .catch(err => console.log(err));
+  });
+
+  // after we test, we will drop user collection again
+  afterEach(done => {
+    User.collection.drop();
+    done();
+  });
+
+  it("Shouldn't registered because user is already exist", done => {
     chai
       .request(app)
       .post('/api/users/register')
       .send({
         email: 'ikhdamuhammad@gmail.com',
+        password: '1234',
+        retypepassword: '1234'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(422);
+        expect(res).to.be.json;
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.be.a('string');
+        expect(res.body.message).to.equal('User already exist!');
+        done();
+      });
+  });
+
+  it('Should be registered and got the token', done => {
+    chai
+      .request(app)
+      .post('/api/users/register')
+      .send({
+        email: 'ikhdadota@gmail.com',
         password: '1234',
         retypepassword: '1234'
       })
@@ -48,7 +90,7 @@ describe('Register', () => {
 });
 
 describe('Login', () => {
-  it('Should be logged in and got the token', (done) => {
+  it('Should be logged in and got the token', done => {
     chai
       .request(app)
       .post('/api/users/login')
@@ -67,7 +109,7 @@ describe('Login', () => {
       });
   });
 
-  it("Shouldn't be logged in and token is null", (done) => {
+  it("Shouldn't be logged in and token is null", done => {
     chai
       .request(app)
       .post('/api/users/login')

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 exports.postRegister = (req, res, next) => {
   const { email, password, retypepassword } = req.body;
@@ -6,20 +7,39 @@ exports.postRegister = (req, res, next) => {
   let token;
 
   if (email && password == retypepassword) {
-    token = jwt.sign(
-      {
-        data: { email }
-      },
-      'secret',
-      { expiresIn: '1h' }
-    );
+    const bcrypt = require('bcrypt');
+    const saltRounds = 10;
 
-    return res.status(200).json({
-      data: {
-        email: email
-      },
-      token: token
-    });
+    return bcrypt
+      .hash(password, saltRounds)
+      .then(hashedPassword => {
+        const user = new User({ email: email, password: hashedPassword });
+
+        user
+          .save()
+          .then(() => {
+            token = jwt.sign(
+              {
+                data: { email }
+              },
+              'secret',
+              { expiresIn: '1h' }
+            );
+
+            res.status(200).json({
+              data: {
+                email: email
+              },
+              token: token
+            });
+          })
+          .catch(err => {
+            if (err.name === 'MongoError' && err.code === 11000) {
+              res.status(422).send({ message: 'User already exist!' });
+            }
+          });
+      })
+      .catch(err => console.log(err));
   }
 
   res.status(400).json({ message: 'Invalid register.' });
@@ -51,22 +71,12 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.postCheck = (req, res, next) => {
-  const { token } = req.headers;
-
-  jwt.verify(token, 'secret', (err, decoded) => {
-    if (err) return res.status(401).json({ message: 'Invalid token.' });
-
-    res.status(200).json({ valid: 'true' });
-  });
+  res.status(200).json({ valid: 'true' });
 };
 
 exports.getDestroy = (req, res, next) => {
   let { token } = req.headers;
 
-  jwt.verify(token, 'secret', (err, decoded) => {
-    if (err) return res.status(401).json({ message: 'Invalid token.' });
-
-    token = null;
-    res.status(200).json({ logout: true });
-  });
+  token = null;
+  res.status(200).json({ logout: true });
 };
