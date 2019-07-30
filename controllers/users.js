@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 exports.postRegister = (req, res, next) => {
@@ -7,7 +8,6 @@ exports.postRegister = (req, res, next) => {
   let token;
 
   if (email && password == retypepassword) {
-    const bcrypt = require('bcrypt');
     const saltRounds = 10;
 
     return bcrypt
@@ -47,27 +47,45 @@ exports.postRegister = (req, res, next) => {
 
 exports.postLogin = (req, res, next) => {
   const { email, password } = req.body;
+  const error = e => {
+    throw e;
+  };
 
-  let token;
+  User.findOne({ email: email })
+    .then(user => {
+      if (user) {
+        return user.password;
+      }
 
-  if (email && password) {
-    token = jwt.sign(
-      {
-        data: { email }
-      },
-      'secret',
-      { expiresIn: '1h' }
-    );
+      error('User not found!');
+    })
+    .then(userpassword => {
+      return bcrypt.compare(password, userpassword);
+    })
+    .then(response => {
+      if (response) {
+        return jwt.sign(
+          {
+            data: { email }
+          },
+          'secret',
+          { expiresIn: '1h' }
+        );
+      }
 
-    return res.status(200).json({
-      data: {
-        email: email
-      },
-      token: token
+      error('Wrong password!');
+    })
+    .then(token => {
+      res.status(200).json({
+        data: {
+          email: email
+        },
+        token: token
+      });
+    })
+    .catch(err => {
+      res.status(403).json({ message: err });
     });
-  }
-
-  res.status(403).json({ message: 'Invalid login.' });
 };
 
 exports.postCheck = (req, res, next) => {
