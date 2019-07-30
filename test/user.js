@@ -170,6 +170,7 @@ describe('Users', () => {
           });
       });
   });
+  
   it('Should declined the token', done => {
     chai
       .request(app)
