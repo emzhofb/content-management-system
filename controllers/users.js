@@ -13,19 +13,23 @@ exports.postRegister = (req, res, next) => {
     return bcrypt
       .hash(password, saltRounds)
       .then(hashedPassword => {
-        const user = new User({ email: email, password: hashedPassword });
+        token = jwt.sign(
+          {
+            data: { email }
+          },
+          'secret',
+          { expiresIn: '1h' }
+        );
+
+        const user = new User({
+          email: email,
+          password: hashedPassword,
+          token: token
+        });
 
         user
           .save()
           .then(() => {
-            token = jwt.sign(
-              {
-                data: { email }
-              },
-              'secret',
-              { expiresIn: '1h' }
-            );
-
             res.status(200).json({
               data: {
                 email: email
@@ -82,6 +86,8 @@ exports.postLogin = (req, res, next) => {
         },
         token: token
       });
+
+      return User.findOneAndUpdate({ email: email }, { token: token });
     })
     .catch(err => {
       res.status(403).json({ message: err });
@@ -95,6 +101,9 @@ exports.postCheck = (req, res, next) => {
 exports.getDestroy = (req, res, next) => {
   let { token } = req.headers;
 
-  token = null;
-  res.status(200).json({ logout: true });
+  User.findOneAndUpdate({ token: token }, { token: null })
+    .then(() => {
+      res.status(200).json({ logout: true });
+    })
+    .catch(err => console.log(err));
 };

@@ -5,6 +5,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+mongoose.set('useFindAndModify', false);
 mongoose.connect('mongodb://localhost:27017/cms', {
   useCreateIndex: true,
   useNewUrlParser: true
