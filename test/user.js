@@ -186,7 +186,7 @@ describe('Users', () => {
       });
   });
 
-  it('Should delete the token', done => {
+  it('Should deleted the token', done => {
     chai
       .request(app)
       .post('/api/users/login')
