@@ -1,7 +1,25 @@
 const ObjectId = require('mongodb').ObjectId;
 const Data = require('../models/data');
 
-exports.addData = (req, res, next) => {
+exports.getData = (req, res, next) => {
+  const error = e => {
+    throw e;
+  };
+
+  Data.find()
+    .then(datas => {
+      if (datas) {
+        return res.status(200).json(datas);
+      }
+
+      error("data can't be found!");
+    })
+    .catch(err => {
+      res.status(406).json({ message: err });
+    });
+};
+
+exports.postData = (req, res, next) => {
   const { letter, frequency } = req.body;
   const data = new Data({ letter: letter, frequency: frequency });
   const error = e => {
