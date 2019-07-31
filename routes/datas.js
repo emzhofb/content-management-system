@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
+const { checkAuth } = require('../middleware/auth');
 const dataController = require('../controllers/datas');
 
-router.post('/search', dataController.postDataSearch);
-router.get('/', dataController.getData);
-router.put('/:id', dataController.putData);
-router.post('/', dataController.postData);
-router.delete('/:id', dataController.deleteData);
-router.get('/:id', dataController.getFindData);
+router.post('/search', checkAuth, dataController.postDataSearch);
+router.get('/', checkAuth, dataController.getData);
+router.put('/:id', checkAuth, dataController.putData);
+router.post('/', checkAuth, dataController.postData);
+router.delete('/:id', checkAuth, dataController.deleteData);
+router.get('/:id', checkAuth, dataController.getFindData);
 
 module.exports = router;

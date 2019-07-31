@@ -34,31 +34,12 @@ describe('Users', () => {
     done();
   });
 
-  it("Shouldn't registered because user is already exist", done => {
-    chai
-      .request(app)
-      .post('/api/users/register')
-      .send({
-        email: 'ikhdamuhammad@gmail.com',
-        password: '1234',
-        retypepassword: '1234'
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(422);
-        expect(res).to.be.json;
-        expect(res.body).to.have.property('message');
-        expect(res.body.message).to.be.a('string');
-        expect(res.body.message).to.equal('User already exist!');
-        done();
-      });
-  });
-
   it("Shouldn't registered and token is null", done => {
     chai
       .request(app)
       .post('/api/users/register')
       .send({
-        email: 'ikhdamuhammad@gmail.com',
+        email: 'ikhdadota@gmail.com',
         password: '1234',
         retypepassword: '12345'
       })
@@ -170,7 +151,7 @@ describe('Users', () => {
           });
       });
   });
-  
+
   it('Should declined the token', done => {
     chai
       .request(app)

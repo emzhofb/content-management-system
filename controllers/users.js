@@ -5,45 +5,50 @@ const User = require('../models/user');
 exports.postRegister = (req, res, next) => {
   const { email, password, retypepassword } = req.body;
 
-  let token;
-
   if (email && password == retypepassword) {
-    const saltRounds = 10;
-
     return bcrypt
-      .hash(password, saltRounds)
+      .hash(password, 10)
       .then(hashedPassword => {
-        token = jwt.sign(
-          {
-            data: { email }
-          },
-          'secret',
-          { expiresIn: '1h' }
-        );
-
-        const user = new User({
-          email: email,
-          password: hashedPassword,
-          token: token
-        });
-
-        user
-          .save()
-          .then(() => {
-            res.status(200).json({
-              data: {
-                email: email
-              },
-              token: token
-            });
-          })
-          .catch(err => {
-            if (err.name === 'MongoError' && err.code === 11000) {
-              res.status(422).send({ message: 'User already exist!' });
-            }
+        if (hashedPassword) {
+          const user = new User({
+            email: email,
+            password: hashedPassword,
+            token: null
           });
+
+          return user.save();
+        }
       })
-      .catch(err => console.log(err));
+      .then(user => {
+        if (user) {
+          return jwt.sign(
+            {
+              data: { email }
+            },
+            'secret',
+            { expiresIn: '1h' }
+          );
+        }
+      })
+      .then(token => {
+        if (token) {
+          res.status(200).json({
+            data: {
+              email: email
+            },
+            token: token
+          });
+
+          return User.findOneAndUpdate({ email: email }, { token: token });
+        }
+      })
+      .catch(err => {
+        if (err.name === 'MongoError' && err.code === 11000) {
+          return res.status(422).send({ message: 'User already exist!' });
+        }
+
+        res.status(400).json({ message: 'Invalid register.' });
+      });
   }
 
   res.status(400).json({ message: 'Invalid register.' });

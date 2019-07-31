@@ -33,7 +33,16 @@ exports.getData = (req, res, next) => {
   Data.find()
     .then(datas => {
       if (datas) {
-        return res.status(200).json(datas);
+        const newdata = [];
+        datas.forEach(data => {
+          newdata.push({
+            _id: data._id,
+            letter: data.letter,
+            frequency: data.frequency
+          });
+        });
+
+        return res.status(200).json(newdata);
       }
 
       error("data can't be found!");
