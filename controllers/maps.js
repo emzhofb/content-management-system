@@ -74,9 +74,9 @@ exports.putMap = (req, res, next) => {
       if (result) {
         const newdata = {};
         newdata._id = result._id;
-        newdata.title = result.title;
-        newdata.lat = result.lat;
-        newdata.lng = result.lng;
+        newdata.title = title;
+        newdata.lat = lat;
+        newdata.lng = lng;
 
         return res.status(205).json({
           success: true,

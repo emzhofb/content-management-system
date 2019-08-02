@@ -76,8 +76,8 @@ exports.putData = (req, res, next) => {
       if (result) {
         const newdata = {};
         newdata._id = result._id;
-        newdata.letter = result.letter;
-        newdata.frequency = result.frequency;
+        newdata.letter = letter;
+        newdata.frequency = frequency;
 
         return res.status(205).json({
           success: true,

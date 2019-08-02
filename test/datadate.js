@@ -43,7 +43,7 @@ describe('Datadates', () => {
     done();
   });
 
-  it('Should filtering data', done => {
+  it('Should filtering datadate', done => {
     chai
       .request(app)
       .post('/api/users/login')
@@ -72,7 +72,7 @@ describe('Datadates', () => {
       });
   });
 
-  it("Shouldn't filtering data", done => {
+  it("Shouldn't filtering datadate", done => {
     chai
       .request(app)
       .post('/api/users/login')
@@ -101,7 +101,7 @@ describe('Datadates', () => {
       });
   });
 
-  it('Should read all data', done => {
+  it('Should read all datadate', done => {
     chai
       .request(app)
       .post('/api/users/login')
@@ -125,7 +125,7 @@ describe('Datadates', () => {
       });
   });
 
-  it('Should update data from mongodb', done => {
+  it('Should update datadate from mongodb', done => {
     chai
       .request(app)
       .post('/api/users/login')
@@ -159,7 +159,7 @@ describe('Datadates', () => {
       });
   });
 
-  it("Shouldn't update data from mongodb", done => {
+  it("Shouldn't update datadate from mongodb", done => {
     chai
       .request(app)
       .post('/api/users/login')
@@ -193,7 +193,7 @@ describe('Datadates', () => {
       });
   });
 
-  it('Should added data to mongodb', done => {
+  it('Should added datadate to mongodb', done => {
     chai
       .request(app)
       .post('/api/users/login')
@@ -221,7 +221,7 @@ describe('Datadates', () => {
       });
   });
 
-  it('Should deleted data from mongodb', done => {
+  it('Should deleted datadate from mongodb', done => {
     chai
       .request(app)
       .post('/api/users/login')
@@ -251,7 +251,7 @@ describe('Datadates', () => {
       });
   });
 
-  it("Shouldn't delete data from mongodb", done => {
+  it("Shouldn't delete datadate from mongodb", done => {
     chai
       .request(app)
       .post('/api/users/login')
@@ -281,7 +281,7 @@ describe('Datadates', () => {
       });
   });
 
-  it('Should find data from mongodb', done => {
+  it('Should find datadate from mongodb', done => {
     chai
       .request(app)
       .post('/api/users/login')
@@ -311,7 +311,7 @@ describe('Datadates', () => {
       });
   });
 
-  it("Shouldn't find data from mongodb", done => {
+  it("Shouldn't find datadate from mongodb", done => {
     chai
       .request(app)
       .post('/api/users/login')

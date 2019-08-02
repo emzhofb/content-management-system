@@ -77,8 +77,8 @@ exports.putDataDate = (req, res, next) => {
       if (result) {
         const newdata = {};
         newdata._id = result._id;
-        newdata.letter = moment(result.letter).format('YYYY-MM-DD');
-        newdata.frequency = result.frequency;
+        newdata.letter = letter;
+        newdata.frequency = frequency;
 
         return res.status(205).json({
           success: true,
