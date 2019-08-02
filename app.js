@@ -13,6 +13,7 @@ mongoose.connect('mongodb://localhost:27017/cms', {
 
 const usersRouter = require('./routes/users');
 const datasRouter = require('./routes/datas');
+const datadatesRouter = require('./routes/datadates');
 
 const app = express();
 
@@ -38,5 +39,6 @@ app.use((req, res, next) => {
 
 app.use('/api/users', usersRouter);
 app.use('/api/data', datasRouter);
+app.use('/api/datadate', datadatesRouter);
 
 module.exports = app;
