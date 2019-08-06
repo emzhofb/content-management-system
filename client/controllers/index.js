@@ -4,8 +4,9 @@ exports.getIndex = (req, res, next) => {
 
 exports.getHome = (req, res, next) => {
   const usermail = req.session.passport.user.data.email;
-  res.render('home/index', { 
+  res.render('inside/home', { 
     title: 'Home', 
     email: usermail, 
-    path: '/home' });
+    path: '/home' 
+  });
 };
