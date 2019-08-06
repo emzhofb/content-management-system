@@ -24,16 +24,42 @@ module.exports = function(passport) {
       },
       function(req, email, password, done) {
         axios
-          .post('localhost:4000/api/users/register', {
+          .post('http://localhost:4000/api/users/register', {
             email: email,
             password: password,
             retypepassword: req.body.retypepassword
           })
           .then(res => {
-            console.log(res);
+            if (res.data.data.email) {
+              return done(null, res.data);
+            }
           })
-          .catch(err => console.log(err))
-          .finally(() => done());
+          .catch(err => done(err));
+      }
+    )
+  );
+
+  passport.use(
+    'local-login',
+    new LocalStrategy(
+      {
+        // by default, local strategy uses username and password, we will override with email
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true // allows us to pass back the entire request to the callback
+      },
+      function(req, email, password, done) {
+        axios
+          .post('http://localhost:4000/api/users/login', {
+            email: email,
+            password: password
+          })
+          .then(res => {
+            if (res.data.data.email) {
+              return done(null, res.data);
+            }
+          })
+          .catch(err => done(err));
       }
     )
   );
