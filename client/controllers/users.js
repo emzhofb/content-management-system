@@ -19,3 +19,11 @@ exports.postRegister = passport.authenticate('local-register', {
   failureRedirect: '/register', // redirect back to the signup page if there is an error
   failureFlash: true // allow flash messages
 });
+
+exports.getLogout = (req, res, next) => {
+  req.session.destroy(err => {
+    if (err) console.log(err);
+
+    res.redirect('/');
+  });
+};

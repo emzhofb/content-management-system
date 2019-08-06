@@ -10,10 +10,13 @@
     />
   </head>
   <body>
-    <div class="container">
+    <%- include('../partials/navigation') %>
+    <div class="container" style="padding-top: 20px;">
       <div class="card">
-        <div class="card-body">
-          Welcome
+        <div class="card-body" style="align-self: center;">
+          <h3>
+            Welcome, <%= email %>
+          </h3>
         </div>
       </div>
     </div>
