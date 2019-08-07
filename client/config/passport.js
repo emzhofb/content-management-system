@@ -1,5 +1,9 @@
 const LocalStrategy = require('passport-local').Strategy;
+const TwitterStrategy = require('passport-twitter').Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const axios = require('axios');
+
+const configAuth = require('./auth');
 
 module.exports = function(passport) {
   passport.serializeUser(function(user, done) {
@@ -60,6 +64,36 @@ module.exports = function(passport) {
             }
           })
           .catch(err => done(err));
+      }
+    )
+  );
+
+  passport.use(
+    new TwitterStrategy(
+      {
+        consumerKey: configAuth.twitterAuth.consumerKey,
+        consumerSecret: configAuth.twitterAuth.consumerSecret,
+        callbackURL: configAuth.twitterAuth.callbackURL
+      },
+      function(token, tokenSecret, profile, done) {
+        process.nextTick(function() {
+          console.log(profile);
+          return done(profile);
+        });
+      }
+    )
+  );
+
+  passport.use(
+    new GoogleStrategy(
+      {
+        clientID: configAuth.googleAuth.clientID,
+        clientSecret: configAuth.googleAuth.clientSecret,
+        callbackURL: configAuth.googleAuth.callbackURL
+      },
+      function(token, refreshToken, profile, done) {
+        console.log(profile);
+        return done(profile);
       }
     )
   );

@@ -27,3 +27,19 @@ exports.getLogout = (req, res, next) => {
     res.redirect('/');
   });
 };
+
+exports.getAuthTwitter = passport.authenticate('twitter');
+
+exports.getAuthTwitterCallback = passport.authenticate('twitter', {
+  successRedirect: '/home',
+  failureRedirect: '/login'
+});
+
+exports.getAuthGoogle = passport.authenticate('google', {
+  scope: ['profile', 'email']
+});
+
+exports.getAuthGoogleCallback = passport.authenticate('google', {
+  successRedirect: '/profile',
+  failureRedirect: '/'
+});
