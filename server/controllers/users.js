@@ -11,9 +11,11 @@ exports.postRegister = (req, res, next) => {
       .then(hashedPassword => {
         if (hashedPassword) {
           const user = new User({
-            email: email,
-            password: hashedPassword,
-            token: null
+            local: {
+              email: email,
+              password: hashedPassword,
+              token: null
+            }
           });
 
           return user.save();
@@ -39,7 +41,10 @@ exports.postRegister = (req, res, next) => {
             token: token
           });
 
-          return User.findOneAndUpdate({ email: email }, { token: token });
+          return User.findOneAndUpdate(
+            { 'local.email': email },
+            { 'local.token': token }
+          );
         }
       })
       .catch(err => {
@@ -60,9 +65,10 @@ exports.postLogin = (req, res, next) => {
     throw e;
   };
 
-  User.findOne({ email: email })
+  User.findOne({ 'local.email': email })
     .then(user => {
       if (user) {
+        user = user.local;
         return user.password;
       }
 
@@ -92,7 +98,10 @@ exports.postLogin = (req, res, next) => {
         token: token
       });
 
-      return User.findOneAndUpdate({ email: email }, { token: token });
+      return User.findOneAndUpdate(
+        { 'local.email': email },
+        { 'local.token': token }
+      );
     })
     .catch(err => {
       res.status(403).json({ message: err });
@@ -106,9 +115,46 @@ exports.postCheck = (req, res, next) => {
 exports.getDestroy = (req, res, next) => {
   let { token } = req.headers;
 
-  User.findOneAndUpdate({ token: token }, { token: null })
+  User.findOneAndUpdate({ 'local.token': token }, { 'local.token': null })
     .then(() => {
       res.status(200).json({ logout: true });
     })
     .catch(err => console.log(err));
 };
+
+// exports.postTwitter = (req, res, next) => {
+//   const { request, token, tokenSecret, profile } = req.query;
+
+//   console.log('twitter');
+//   console.log(request);
+//   console.log(token);
+//   console.log(tokenSecret);
+//   console.log(profile);
+// };
+
+// exports.postGoogle = (req, res, next) => {
+//   const { token, profile } = req.body;
+
+//   const user = new User({
+//     google: {
+//       id: profile.id,
+//       token: token,
+//       name: profile.displayName,
+//       email: profile.emails[0].value
+//     }
+//   });
+
+//   user
+//     .save()
+//     .then(result => {
+//       res.status(200).json({
+//         data: {
+//           email: result.google.email
+//         },
+//         token: result.google.token
+//       });
+//     })
+//     .catch(err => {
+//       res.status(403).json({ message: err });
+//     });
+// };
