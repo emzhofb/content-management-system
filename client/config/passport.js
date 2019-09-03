@@ -29,7 +29,7 @@ module.exports = function(passport) {
       function(req, email, password, done) {
         axios
           .post('http://localhost:4000/api/users/register', {
-            email: email,
+            email: email.toLowerCase().trim(),
             password: password,
             retypepassword: req.body.retypepassword
           })
@@ -38,7 +38,21 @@ module.exports = function(passport) {
               return done(null, res.data);
             }
           })
-          .catch(err => done(err));
+          .catch(err => {
+            if (err.response.data.message === 'User already exist!') {
+              return done(
+                null,
+                false,
+                req.flash('register', err.response.data.message)
+              );
+            }
+
+            return done(
+              null,
+              false,
+              req.flash('register', 'Invalid register.')
+            );
+          });
       }
     )
   );
@@ -55,7 +69,7 @@ module.exports = function(passport) {
       function(req, email, password, done) {
         axios
           .post('http://localhost:4000/api/users/login', {
-            email: email,
+            email: email.toLowerCase().trim(),
             password: password
           })
           .then(res => {
@@ -63,7 +77,10 @@ module.exports = function(passport) {
               return done(null, res.data);
             }
           })
-          .catch(err => done(err));
+          .catch(err => {
+            console.log(err);
+            done(err);
+          });
       }
     )
   );
@@ -75,10 +92,22 @@ module.exports = function(passport) {
         consumerSecret: configAuth.twitterAuth.consumerSecret,
         callbackURL: configAuth.twitterAuth.callbackURL
       },
-      function(token, tokenSecret, profile, done) {
+      function(req, token, tokenSecret, profile, done) {
         process.nextTick(function() {
-          console.log(profile);
-          return done(profile);
+          axios
+            .get('http://localhost:4000/api/users/auth/twitter', {
+              params: {
+                request: req,
+                token: token,
+                tokenSecret: tokenSecret,
+                profile: profile
+              }
+            })
+            .then(res => {
+              console.log(res);
+              return done(res);
+            })
+            .catch(err => done(err));
         });
       }
     )
@@ -92,8 +121,17 @@ module.exports = function(passport) {
         callbackURL: configAuth.googleAuth.callbackURL
       },
       function(token, refreshToken, profile, done) {
-        console.log(profile);
-        return done(profile);
+        axios
+          .post('http://localhost:4000/api/users/auth/google', {
+            token: token,
+            profile: profile
+          })
+          .then(res => {
+            if (res.data.data.email) {
+              return done(null, res.data);
+            }
+          })
+          .catch(err => done(err));
       }
     )
   );

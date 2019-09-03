@@ -1,11 +1,17 @@
 const passport = require('passport');
+const axios = require('axios');
 
 exports.getLogin = (req, res, next) => {
   res.render('adminpanel/login', { title: 'Login' });
 };
 
 exports.getRegister = (req, res, next) => {
-  res.render('adminpanel/register', { title: 'Register' });
+  let message = req.flash('register');
+
+  res.render('adminpanel/register', {
+    title: 'Register',
+    messages: message
+  });
 };
 
 exports.postLogin = passport.authenticate('local-login', {
@@ -21,14 +27,21 @@ exports.postRegister = passport.authenticate('local-register', {
 });
 
 exports.getLogout = (req, res, next) => {
-  req.session.destroy(err => {
-    if (err) console.log(err);
-
-    res.redirect('/');
-  });
+  axios
+    .get('http://localhost:4000/api/users/destroy', {
+      headers: {
+        token: req.session.passport.user.token
+      }
+    })
+    .then(response => {
+      if (response.data.logout == true) {
+        res.redirect('/');
+      }
+    })
+    .catch(err => console.log(err));
 };
 
-exports.getAuthTwitter = passport.authenticate('twitter');
+exports.getAuthTwitter = passport.authenticate('twitter', { scope: 'email' });
 
 exports.getAuthTwitterCallback = passport.authenticate('twitter', {
   successRedirect: '/home',
@@ -40,6 +53,6 @@ exports.getAuthGoogle = passport.authenticate('google', {
 });
 
 exports.getAuthGoogleCallback = passport.authenticate('google', {
-  successRedirect: '/profile',
-  failureRedirect: '/'
+  successRedirect: '/home',
+  failureRedirect: '/login'
 });

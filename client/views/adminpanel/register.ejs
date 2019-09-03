@@ -42,6 +42,11 @@
         </div>
         <div class="container" style="max-width: 80%;">
           <div class="card-body">
+            <% if (messages[0]) { %>
+            <div class="alert alert-danger" role="alert">
+              <%= messages %>
+            </div>
+            <% } %>
             <form action="/register" method="POST">
               <div class="form-group" style="text-align: left;">
                 <label for="exampleInputEmail1">Email address</label>

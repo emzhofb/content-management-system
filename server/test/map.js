@@ -18,8 +18,10 @@ describe('Maps', () => {
   beforeEach(done => {
     bcrypt.hash('1234', 10).then(password => {
       const user = new User({
-        email: 'ikhdamuhammad@gmail.com',
-        password: password
+        local: {
+          email: 'ikhdamuhammad@gmail.com',
+          password: password
+        }
       });
 
       user
