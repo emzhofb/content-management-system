@@ -12,15 +12,16 @@
   <body>
     <%- include('../partials/navigation') %>
     <div class="container" style="padding-top: 20px;">
-      <div class="card">
+      <button type="submit" id="button-add" class="btn btn-info">
+        <span class="fas fa-plus"></span> Add
+      </button>
+      <br />
+      <br />
+      <div id="show-add" class="card">
         <div class="card-body">
-          <a href="" class="btn btn-info">
-            <span class="fas fa-plus"></span> Add
-          </a>
-          <div id="showAdd" class="card" style="background-color: #d3d3d3;">
+          <div class="card" style="background-color: #d3d3d3;">
             <div class="card-body">
-              <form class="form-inline" action="/data/add" method="POST">
-                <input id="data-id" type="hidden" />
+              <form class="form-inline">
                 <div class="form-group mx-sm-3 mb-2">
                   <label style="padding-right: 10px;">Letter</label>
                   <input type="text" class="form-control" placeholder="A" />
@@ -41,14 +42,70 @@
           </div>
         </div>
       </div>
+      <br />
+      <table class="table table-striped" id="table-data">
+        <thead>
+          <th>#</th>
+          <th>ID</th>
+          <th>Letter</th>
+          <th>Frequency</th>
+          <th>Action</th>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
     <script src="https://kit.fontawesome.com/a444a4f1de.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
+      const API_URL = 'http://localhost:4000/api/data';
+      const token = '<%= token %>';
+
+      const listData = data => {
+        let list = '';
+        data.forEach((item, i) => {
+          list += `<tr>
+            <td> ${i + 1} </td>
+            <td> ${item._id} </td>
+            <td> ${item.letter} </td>
+            <td> ${item.frequency} </td>
+            <td>
+              <button 
+                class="btn btn-success btn-edit" 
+                data-id="${item._id}"
+                data-letter="${item.letter}"
+                data-frequency="${item.frequency}"
+              >
+                <i class="fas fa-pencil-alt"></i> update
+              </button>
+              <button 
+                class="btn btn-danger btn-delete"
+                data-id=${item._id}
+              >
+                <i class="fas fa-trash-alt"></i> Delete
+              </button>
+            </td>
+          </tr>`;
+        });
+        $('#table-data tbody').html(list);
+      };
+
+      const loadData = () => {
+        $.ajax({
+          url: API_URL,
+          headers: { token: token },
+          method: 'GET',
+          success: function(result) {
+            listData(result);
+          }
+        });
+      };
+
+      loadData();
+
       $(document).ready(function() {
-        $('#showAdd').hide();
-        $('#showAdd').click(function() {
-          $('#showAdd').show();
+        $('#show-add').hide();
+        $('#button-add').click(function() {
+          $('#show-add').toggle();
         });
       });
     </script>

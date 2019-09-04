@@ -12,5 +12,10 @@ exports.getHome = (req, res, next) => {
 };
 
 exports.getData = (req, res, next) => {
-  res.render('inside/data', { title: 'Data', path: '/data' });
+  const usertoken = req.session.passport.user.token;
+  res.render('inside/data', {
+    title: 'Data',
+    token: usertoken,
+    path: '/data'
+  });
 };
