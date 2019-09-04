@@ -12,7 +12,7 @@
   <body>
     <%- include('../partials/navigation') %>
     <div class="container" style="padding-top: 20px;">
-      <button type="submit" id="button-add" class="btn btn-info">
+      <button type="button" id="button-add" class="btn btn-info">
         <span class="fas fa-plus"></span> Add
       </button>
       <br />
@@ -24,7 +24,12 @@
               <form class="form-inline">
                 <div class="form-group mx-sm-3 mb-2">
                   <label style="padding-right: 10px;">Letter</label>
-                  <input type="text" class="form-control" placeholder="A" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="A"
+                    id="letter"
+                  />
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
                   <label style="padding-right: 10px;">Frequency</label>
@@ -32,9 +37,15 @@
                     type="text"
                     class="form-control"
                     placeholder="0.0000"
+                    id="frequency"
                   />
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">
+                <button
+                  id="add-data"
+                  type="button"
+                  class="btn btn-primary mb-2"
+                >
+                  <i class="fas fa-save"></i>
                   Save
                 </button>
               </form>
@@ -102,10 +113,29 @@
 
       loadData();
 
+      const addData = () => {
+        const letter = $('#letter').val();
+        const frequency = $('#frequency').val();
+
+        $.ajax({
+          url: API_URL,
+          headers: { token: token },
+          method: 'POST',
+          data: { letter, frequency },
+          success: function(result) {
+            loadData();
+          }
+        });
+      };
+
       $(document).ready(function() {
         $('#show-add').hide();
         $('#button-add').click(function() {
           $('#show-add').toggle();
+        });
+        $('#add-data').click(function() {
+          addData();
+          $('#show-add').hide();
         });
       });
     </script>
