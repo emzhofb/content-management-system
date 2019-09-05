@@ -23,6 +23,7 @@
             <div class="card-body">
               <form class="form-inline">
                 <div class="form-group mx-sm-3 mb-2">
+                  <input type="hidden" id="_id" />
                   <label style="padding-right: 10px;">Letter</label>
                   <input
                     type="text"
@@ -155,21 +156,37 @@
         }
       };
 
-      const addData = () => {
+      const saveData = () => {
+        const id = $('#_id').val();
         const letter = $('#letter').val();
         const frequency = $('#frequency').val();
 
-        $.ajax({
-          url: API_URL,
-          headers: { token: token },
-          method: 'POST',
-          data: { letter, frequency },
-          success: function(result) {
-            loadData();
-            $('#letter').val('');
-            $('#frequency').val('');
-          }
-        });
+        if (!id) {
+          $.ajax({
+            url: API_URL,
+            headers: { token: token },
+            method: 'POST',
+            data: { letter, frequency },
+            success: function(result) {
+              loadData();
+              $('#letter').val('');
+              $('#frequency').val('');
+            }
+          });
+        } else {
+          $.ajax({
+            url: `${API_URL}/${id}`,
+            headers: { token: token },
+            method: 'PUT',
+            data: { letter, frequency },
+            success: function(result) {
+              loadData();
+              $('#_id').val('');
+              $('#letter').val('');
+              $('#frequency').val('');
+            }
+          });
+        }
       };
 
       const deleteData = id => {
@@ -183,6 +200,18 @@
         });
       };
 
+      const editData = (id, letter, frequency) => {
+        $('#_id').val(id);
+        $('#letter').val(letter);
+        $('#frequency').val(frequency);
+
+        if ($('#show-add').is(':hidden')) {
+          $('#show-add').toggle();
+        } else {
+          $('#show-add').show();
+        }
+      };
+
       $(document).ready(() => {
         loadData();
 
@@ -193,7 +222,7 @@
         });
 
         $('#add-data').click(() => {
-          addData();
+          saveData();
           $('#show-add').hide();
         });
 
@@ -201,7 +230,14 @@
           findData();
         });
 
-        $('#table-data tbody').click('delete-button', e => {
+        $('#table-data tbody').on('click', '.edit-button', e => {
+          const id = $(e.target).attr('data-id');
+          const letter = $(e.target).attr('data-letter');
+          const frequency = $(e.target).attr('data-frequency');
+          editData(id, letter, frequency);
+        });
+
+        $('#table-data tbody').on('click', '.delete-button', e => {
           const del = confirm('Are you sure?');
           if (del) {
             const id = $(e.target).attr('data-id');
