@@ -54,6 +54,31 @@
         </div>
       </div>
       <br />
+      <h2>Search</h2>
+      <div class="card">
+        <div class="card-body">
+          <form class="form-inline">
+            <div class="form-group mx-sm-3 mb-2">
+              <label style="padding-right: 10px;">Letter</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="A"
+                id="find-letter"
+              />
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <label style="padding-right: 10px;">Frequency</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="0.0000"
+                id="find-frequency"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
       <table class="table table-striped" id="table-data">
         <thead>
           <th>#</th>
@@ -111,7 +136,24 @@
         });
       };
 
-      loadData();
+      const findData = () => {
+        const letter = $('#find-letter').val();
+        const frequency = $('#find-frequency').val();
+
+        if (letter || frequency) {
+          $.ajax({
+            url: `${API_URL}/search`,
+            headers: { token: token },
+            method: 'POST',
+            data: { letter, frequency },
+            success: function(result) {
+              listData(result);
+            }
+          });
+        } else {
+          loadData();
+        }
+      };
 
       const addData = () => {
         const letter = $('#letter').val();
@@ -124,11 +166,14 @@
           data: { letter, frequency },
           success: function(result) {
             loadData();
+            $('#letter').val('');
+            $('#frequency').val('');
           }
         });
       };
 
       $(document).ready(function() {
+        loadData();
         $('#show-add').hide();
         $('#button-add').click(function() {
           $('#show-add').toggle();
@@ -136,6 +181,9 @@
         $('#add-data').click(function() {
           addData();
           $('#show-add').hide();
+        });
+        $('#find-letter, #find-frequency').keyup(function() {
+          findData();
         });
       });
     </script>
