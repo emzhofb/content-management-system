@@ -105,16 +105,16 @@
             <td> ${item.letter} </td>
             <td> ${item.frequency} </td>
             <td>
-              <button 
-                class="btn btn-success btn-edit" 
+              <button
+                class="btn btn-success edit-button"
                 data-id="${item._id}"
                 data-letter="${item.letter}"
                 data-frequency="${item.frequency}"
               >
                 <i class="fas fa-pencil-alt"></i> update
               </button>
-              <button 
-                class="btn btn-danger btn-delete"
+              <button
+                class="btn btn-danger delete-button"
                 data-id=${item._id}
               >
                 <i class="fas fa-trash-alt"></i> Delete
@@ -172,18 +172,41 @@
         });
       };
 
-      $(document).ready(function() {
+      const deleteData = id => {
+        $.ajax({
+          url: `${API_URL}/${id}`,
+          headers: { token: token },
+          method: 'DELETE',
+          success: function() {
+            loadData();
+          }
+        });
+      };
+
+      $(document).ready(() => {
         loadData();
+
         $('#show-add').hide();
-        $('#button-add').click(function() {
+
+        $('#button-add').click(() => {
           $('#show-add').toggle();
         });
-        $('#add-data').click(function() {
+
+        $('#add-data').click(() => {
           addData();
           $('#show-add').hide();
         });
-        $('#find-letter, #find-frequency').keyup(function() {
+
+        $('#find-letter, #find-frequency').keyup(() => {
           findData();
+        });
+
+        $('#table-data tbody').click('delete-button', e => {
+          const del = confirm('Are you sure?');
+          if (del) {
+            const id = $(e.target).attr('data-id');
+            deleteData(id);
+          }
         });
       });
     </script>
