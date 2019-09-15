@@ -8,5 +8,7 @@ const { isLoggedIn } = require('../middleware/auth');
 router.get('/', controller.getIndex);
 router.get('/home', isLoggedIn, controller.getHome);
 router.get('/data', isLoggedIn, controller.getData);
+router.get('/bar', controller.getBar);
+router.get('/pie', controller.getPie);
 
 module.exports = router;

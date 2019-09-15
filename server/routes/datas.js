@@ -5,7 +5,7 @@ const { checkAuth } = require('../middleware/auth');
 const dataController = require('../controllers/datas');
 
 router.post('/search', checkAuth, dataController.postDataSearch);
-router.get('/', checkAuth, dataController.getData);
+router.get('/', dataController.getData);
 router.put('/:id', checkAuth, dataController.putData);
 router.post('/', checkAuth, dataController.postData);
 router.delete('/:id', checkAuth, dataController.deleteData);

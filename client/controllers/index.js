@@ -19,3 +19,11 @@ exports.getData = (req, res, next) => {
     path: '/data'
   });
 };
+
+exports.getBar = (req, res, next) => {
+  res.render('dashboard/bar', { title: 'Bar' });
+};
+
+exports.getPie = (req, res, next) => {
+  res.render('dashboard/pie', { title: 'Pie' });
+};

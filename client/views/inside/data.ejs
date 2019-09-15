@@ -167,10 +167,8 @@
             headers: { token: token },
             method: 'POST',
             data: { letter, frequency },
-            success: function(result) {
+            success: function() {
               loadData();
-              $('#letter').val('');
-              $('#frequency').val('');
             }
           });
         } else {
@@ -179,14 +177,16 @@
             headers: { token: token },
             method: 'PUT',
             data: { letter, frequency },
-            success: function(result) {
+            success: function() {
               loadData();
-              $('#_id').val('');
-              $('#letter').val('');
-              $('#frequency').val('');
             }
           });
         }
+
+        loadData();
+        $('#_id').val('');
+        $('#letter').val('');
+        $('#frequency').val('');
       };
 
       const deleteData = id => {
