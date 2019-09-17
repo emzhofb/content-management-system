@@ -27,8 +27,7 @@ exports.postRegister = (req, res, next) => {
             {
               data: { email }
             },
-            'secret',
-            { expiresIn: '1h' }
+            'secret'
           );
         }
       })
@@ -83,8 +82,7 @@ exports.postLogin = (req, res, next) => {
           {
             data: { email }
           },
-          'secret',
-          { expiresIn: '1h' }
+          'secret'
         );
       }
 

@@ -1,0 +1,622 @@
+[
+  {
+    "letter": "2007-04-23",
+    "frequency": 93.24
+  },
+  {
+    "letter": "2007-04-24",
+    "frequency": 95.35
+  },
+  {
+    "letter": "2007-04-25",
+    "frequency": 98.84
+  },
+  {
+    "letter": "2007-04-26",
+    "frequency": 99.92
+  },
+  {
+    "letter": "2007-04-29",
+    "frequency": 99.8
+  },
+  {
+    "letter": "2007-04-30",
+    "frequency": 99.47
+  },
+  {
+    "letter": "2007-05-01",
+    "frequency": 100.39
+  },
+  {
+    "letter": "2007-05-02",
+    "frequency": 100.4
+  },
+  {
+    "letter": "2007-05-03",
+    "frequency": 100.81
+  },
+  {
+    "letter": "2007-05-06",
+    "frequency": 103.92
+  },
+  {
+    "letter": "2007-05-07",
+    "frequency": 105.06
+  },
+  {
+    "letter": "2007-05-08",
+    "frequency": 106.88
+  },
+  {
+    "letter": "2007-05-09",
+    "frequency": 107.34
+  },
+  {
+    "letter": "2007-05-10",
+    "frequency": 108.74
+  },
+  {
+    "letter": "2007-05-13",
+    "frequency": 109.36
+  },
+  {
+    "letter": "2007-05-14",
+    "frequency": 107.52
+  },
+  {
+    "letter": "2007-05-15",
+    "frequency": 107.34
+  },
+  {
+    "letter": "2007-05-16",
+    "frequency": 109.44
+  },
+  {
+    "letter": "2007-05-17",
+    "frequency": 110.02
+  },
+  {
+    "letter": "2007-05-20",
+    "frequency": 111.98
+  },
+  {
+    "letter": "2007-05-21",
+    "frequency": 113.54
+  },
+  {
+    "letter": "2007-05-22",
+    "frequency": 112.89
+  },
+  {
+    "letter": "2007-05-23",
+    "frequency": 110.69
+  },
+  {
+    "letter": "2007-05-24",
+    "frequency": 113.62
+  },
+  {
+    "letter": "2007-05-28",
+    "frequency": 114.35
+  },
+  {
+    "letter": "2007-05-29",
+    "frequency": 118.77
+  },
+  {
+    "letter": "2007-05-30",
+    "frequency": 121.19
+  },
+  {
+    "letter": "2007-05-31",
+    "frequency": 118.4
+  },
+  {
+    "letter": "2007-06-03",
+    "frequency": 121.33
+  },
+  {
+    "letter": "2007-06-04",
+    "frequency": 122.67
+  },
+  {
+    "letter": "2007-06-05",
+    "frequency": 123.64
+  },
+  {
+    "letter": "2007-06-06",
+    "frequency": 124.07
+  },
+  {
+    "letter": "2007-06-07",
+    "frequency": 124.49
+  },
+  {
+    "letter": "2007-06-10",
+    "frequency": 120.19
+  },
+  {
+    "letter": "2007-06-11",
+    "frequency": 120.38
+  },
+  {
+    "letter": "2007-06-12",
+    "frequency": 117.5
+  },
+  {
+    "letter": "2007-06-13",
+    "frequency": 118.75
+  },
+  {
+    "letter": "2007-06-14",
+    "frequency": 120.5
+  },
+  {
+    "letter": "2007-06-17",
+    "frequency": 125.09
+  },
+  {
+    "letter": "2007-06-18",
+    "frequency": 123.66
+  },
+  {
+    "letter": "2007-06-19",
+    "frequency": 121.55
+  },
+  {
+    "letter": "2007-06-20",
+    "frequency": 123.9
+  },
+  {
+    "letter": "2007-06-21",
+    "frequency": 123
+  },
+  {
+    "letter": "2007-06-24",
+    "frequency": 122.34
+  },
+  {
+    "letter": "2007-06-25",
+    "frequency": 119.65
+  },
+  {
+    "letter": "2007-06-26",
+    "frequency": 121.89
+  },
+  {
+    "letter": "2007-06-27",
+    "frequency": 120.56
+  },
+  {
+    "letter": "2007-06-28",
+    "frequency": 122.04
+  },
+  {
+    "letter": "2007-07-01",
+    "frequency": 121.26
+  },
+  {
+    "letter": "2007-07-02",
+    "frequency": 127.17
+  },
+  {
+    "letter": "2007-07-04",
+    "frequency": 132.75
+  },
+  {
+    "letter": "2007-07-05",
+    "frequency": 132.3
+  },
+  {
+    "letter": "2007-07-08",
+    "frequency": 130.33
+  },
+  {
+    "letter": "2007-07-09",
+    "frequency": 132.35
+  },
+  {
+    "letter": "2007-07-10",
+    "frequency": 132.39
+  },
+  {
+    "letter": "2007-07-11",
+    "frequency": 134.07
+  },
+  {
+    "letter": "2007-07-12",
+    "frequency": 137.73
+  },
+  {
+    "letter": "2007-07-15",
+    "frequency": 138.1
+  },
+  {
+    "letter": "2007-07-16",
+    "frequency": 138.91
+  },
+  {
+    "letter": "2007-07-17",
+    "frequency": 138.12
+  },
+  {
+    "letter": "2007-07-18",
+    "frequency": 140
+  },
+  {
+    "letter": "2007-07-19",
+    "frequency": 143.75
+  },
+  {
+    "letter": "2007-07-22",
+    "frequency": 143.7
+  },
+  {
+    "letter": "2007-07-23",
+    "frequency": 134.89
+  },
+  {
+    "letter": "2007-07-24",
+    "frequency": 137.26
+  },
+  {
+    "letter": "2007-07-25",
+    "frequency": 146
+  },
+  {
+    "letter": "2007-07-26",
+    "frequency": 143.85
+  },
+  {
+    "letter": "2007-07-29",
+    "frequency": 141.43
+  },
+  {
+    "letter": "2007-07-30",
+    "frequency": 131.76
+  },
+  {
+    "letter": "2007-07-31",
+    "frequency": 135
+  },
+  {
+    "letter": "2007-08-01",
+    "frequency": 136.49
+  },
+  {
+    "letter": "2007-08-02",
+    "frequency": 131.85
+  },
+  {
+    "letter": "2007-08-05",
+    "frequency": 135.25
+  },
+  {
+    "letter": "2007-08-06",
+    "frequency": 135.03
+  },
+  {
+    "letter": "2007-08-07",
+    "frequency": 134.01
+  },
+  {
+    "letter": "2007-08-08",
+    "frequency": 126.39
+  },
+  {
+    "letter": "2007-08-09",
+    "frequency": 125
+  },
+  {
+    "letter": "2007-08-12",
+    "frequency": 127.79
+  },
+  {
+    "letter": "2007-08-13",
+    "frequency": 124.03
+  },
+  {
+    "letter": "2007-08-14",
+    "frequency": 119.9
+  },
+  {
+    "letter": "2007-08-15",
+    "frequency": 117.05
+  },
+  {
+    "letter": "2007-08-16",
+    "frequency": 122.06
+  },
+  {
+    "letter": "2007-08-19",
+    "frequency": 122.22
+  },
+  {
+    "letter": "2007-08-20",
+    "frequency": 127.57
+  },
+  {
+    "letter": "2007-08-21",
+    "frequency": 132.51
+  },
+  {
+    "letter": "2007-08-22",
+    "frequency": 131.07
+  },
+  {
+    "letter": "2007-08-23",
+    "frequency": 135.3
+  },
+  {
+    "letter": "2007-08-26",
+    "frequency": 132.25
+  },
+  {
+    "letter": "2007-08-27",
+    "frequency": 126.82
+  },
+  {
+    "letter": "2007-08-28",
+    "frequency": 134.08
+  },
+  {
+    "letter": "2007-08-29",
+    "frequency": 136.25
+  },
+  {
+    "letter": "2007-08-30",
+    "frequency": 138.48
+  },
+  {
+    "letter": "2007-09-03",
+    "frequency": 144.16
+  },
+  {
+    "letter": "2007-09-04",
+    "frequency": 136.76
+  },
+  {
+    "letter": "2007-09-05",
+    "frequency": 135.01
+  },
+  {
+    "letter": "2007-09-06",
+    "frequency": 131.77
+  },
+  {
+    "letter": "2007-09-09",
+    "frequency": 136.71
+  },
+  {
+    "letter": "2007-09-10",
+    "frequency": 135.49
+  },
+  {
+    "letter": "2007-09-11",
+    "frequency": 136.85
+  },
+  {
+    "letter": "2007-09-12",
+    "frequency": 137.2
+  },
+  {
+    "letter": "2007-09-13",
+    "frequency": 138.81
+  },
+  {
+    "letter": "2007-09-16",
+    "frequency": 138.41
+  },
+  {
+    "letter": "2007-09-17",
+    "frequency": 140.92
+  },
+  {
+    "letter": "2007-09-18",
+    "frequency": 140.77
+  },
+  {
+    "letter": "2007-09-19",
+    "frequency": 140.31
+  },
+  {
+    "letter": "2007-09-20",
+    "frequency": 144.15
+  },
+  {
+    "letter": "2007-09-23",
+    "frequency": 148.28
+  },
+  {
+    "letter": "2007-09-24",
+    "frequency": 153.18
+  },
+  {
+    "letter": "2007-09-25",
+    "frequency": 152.77
+  },
+  {
+    "letter": "2007-09-26",
+    "frequency": 154.5
+  },
+  {
+    "letter": "2007-09-27",
+    "frequency": 153.47
+  },
+  {
+    "letter": "2007-09-30",
+    "frequency": 156.34
+  },
+  {
+    "letter": "2007-10-01",
+    "frequency": 158.45
+  },
+  {
+    "letter": "2007-10-02",
+    "frequency": 157.92
+  },
+  {
+    "letter": "2007-10-03",
+    "frequency": 156.24
+  },
+  {
+    "letter": "2007-10-04",
+    "frequency": 161.45
+  },
+  {
+    "letter": "2007-10-07",
+    "frequency": 167.91
+  },
+  {
+    "letter": "2007-10-08",
+    "frequency": 167.86
+  },
+  {
+    "letter": "2007-10-09",
+    "frequency": 166.79
+  },
+  {
+    "letter": "2007-10-10",
+    "frequency": 162.23
+  },
+  {
+    "letter": "2007-10-11",
+    "frequency": 167.25
+  },
+  {
+    "letter": "2007-10-14",
+    "frequency": 166.98
+  },
+  {
+    "letter": "2007-10-15",
+    "frequency": 169.58
+  },
+  {
+    "letter": "2007-10-16",
+    "frequency": 172.75
+  },
+  {
+    "letter": "2007-10-17",
+    "frequency": 173.5
+  },
+  {
+    "letter": "2007-10-18",
+    "frequency": 170.42
+  },
+  {
+    "letter": "2007-10-21",
+    "frequency": 174.36
+  },
+  {
+    "letter": "2007-10-22",
+    "frequency": 186.16
+  },
+  {
+    "letter": "2007-10-23",
+    "frequency": 185.93
+  },
+  {
+    "letter": "2007-10-24",
+    "frequency": 182.78
+  },
+  {
+    "letter": "2007-10-25",
+    "frequency": 184.7
+  },
+  {
+    "letter": "2007-10-28",
+    "frequency": 185.09
+  },
+  {
+    "letter": "2007-10-29",
+    "frequency": 187
+  },
+  {
+    "letter": "2007-10-30",
+    "frequency": 189.95
+  },
+  {
+    "letter": "2007-10-31",
+    "frequency": 187.44
+  },
+  {
+    "letter": "2007-11-01",
+    "frequency": 187.87
+  },
+  {
+    "letter": "2007-11-04",
+    "frequency": 186.18
+  },
+  {
+    "letter": "2007-11-05",
+    "frequency": 191.79
+  },
+  {
+    "letter": "2007-11-06",
+    "frequency": 186.3
+  },
+  {
+    "letter": "2007-11-07",
+    "frequency": 175.47
+  },
+  {
+    "letter": "2007-11-08",
+    "frequency": 165.37
+  },
+  {
+    "letter": "2007-11-11",
+    "frequency": 153.76
+  },
+  {
+    "letter": "2007-11-12",
+    "frequency": 169.96
+  },
+  {
+    "letter": "2007-11-13",
+    "frequency": 166.11
+  },
+  {
+    "letter": "2007-11-14",
+    "frequency": 164.3
+  },
+  {
+    "letter": "2007-11-15",
+    "frequency": 166.39
+  },
+  {
+    "letter": "2007-11-18",
+    "frequency": 163.95
+  },
+  {
+    "letter": "2007-11-19",
+    "frequency": 168.85
+  },
+  {
+    "letter": "2007-11-20",
+    "frequency": 168.46
+  },
+  {
+    "letter": "2007-11-22",
+    "frequency": 171.54
+  },
+  {
+    "letter": "2007-11-25",
+    "frequency": 172.54
+  },
+  {
+    "letter": "2007-11-26",
+    "frequency": 174.81
+  },
+  {
+    "letter": "2007-11-27",
+    "frequency": 180.22
+  },
+  {
+    "letter": "2007-11-28",
+    "frequency": 184.29
+  },
+  {
+    "letter": "2007-11-29",
+    "frequency": 184.29
+  }
+]

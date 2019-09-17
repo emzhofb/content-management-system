@@ -12,6 +12,7 @@
   <body>
     <%- include('../partials/navigation') %>
     <div class="container" style="padding-top: 20px;">
+      <div id="message"></div>
       <button type="button" id="button-add" class="btn btn-info">
         <span class="fas fa-plus"></span> Add
       </button>
@@ -26,9 +27,9 @@
                   <input type="hidden" id="_id" />
                   <label style="padding-right: 10px;">Letter</label>
                   <input
-                    type="text"
+                    type="date"
                     class="form-control"
-                    placeholder="A"
+                    placeholder="yyyy-mm-dd"
                     id="letter"
                   />
                 </div>
@@ -62,9 +63,10 @@
             <div class="form-group mx-sm-3 mb-2">
               <label style="padding-right: 10px;">Letter</label>
               <input
-                type="text"
+                type="date"
+                onchange="findData()"
                 class="form-control"
-                placeholder="A"
+                placeholder="yyyy-mm-dd"
                 id="find-letter"
               />
             </div>
@@ -93,7 +95,7 @@
     <script src="https://kit.fontawesome.com/a444a4f1de.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-      const API_URL = 'http://localhost:4000/api/data';
+      const API_URL = 'http://localhost:4000/api/datadate';
       const token = '<%= token %>';
 
       const listData = data => {
@@ -154,6 +156,15 @@
         }
       };
 
+      const alerts = message => {
+        $(
+          '<div class="alert alert-primary" role="alert">' + message + '</div>'
+        ).appendTo('#message');
+        setTimeout(function() {
+          $('.alert').remove();
+        }, 3000);
+      };
+
       const saveData = () => {
         const id = $('#_id').val();
         const letter = $('#letter').val();
@@ -167,6 +178,7 @@
             data: { letter, frequency },
             success: function() {
               loadData();
+              alerts('Data has been added!');
             }
           });
         } else {
@@ -177,6 +189,7 @@
             data: { letter, frequency },
             success: function() {
               loadData();
+              alerts('Data has been updated!');
             }
           });
         }
@@ -224,7 +237,7 @@
           $('#show-add').hide();
         });
 
-        $('#find-letter, #find-frequency').keyup(() => {
+        $('#find-frequency').keyup(() => {
           findData();
         });
 

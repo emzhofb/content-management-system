@@ -20,10 +20,23 @@ exports.getData = (req, res, next) => {
   });
 };
 
+exports.getDataDate = (req, res, next) => {
+  const usertoken = req.session.passport.user.token;
+  res.render('inside/datadate', {
+    title: 'DataDate',
+    token: usertoken,
+    path: '/datadate'
+  });
+};
+
 exports.getBar = (req, res, next) => {
   res.render('dashboard/bar', { title: 'Bar' });
 };
 
 exports.getPie = (req, res, next) => {
   res.render('dashboard/pie', { title: 'Pie' });
+};
+
+exports.getLine = (req, res, next) => {
+  res.render('dashboard/line', { title: 'Line' });
 };

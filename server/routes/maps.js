@@ -5,7 +5,7 @@ const { checkAuth } = require('../middleware/auth');
 const mapController = require('../controllers/maps');
 
 router.post('/search', checkAuth, mapController.postMapSearch);
-router.get('/', checkAuth, mapController.getMap);
+router.get('/', mapController.getMap);
 router.put('/:id', checkAuth, mapController.putMap);
 router.post('/', checkAuth, mapController.postMap);
 router.delete('/:id', checkAuth, mapController.deleteMap);
