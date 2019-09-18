@@ -22,29 +22,38 @@
           <div class="card" style="background-color: #d3d3d3;">
             <div class="card-body">
               <form class="form-inline">
-                <div class="form-group mx-sm-3 mb-2">
+                <div class="form-group mx-sm-1 mb-1">
                   <input type="hidden" id="_id" />
-                  <label style="padding-right: 10px;">Letter</label>
+                  <label style="padding-right: 10px;">Title</label>
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="A"
-                    id="letter"
+                    placeholder="title of map"
+                    id="title"
                   />
                 </div>
-                <div class="form-group mx-sm-3 mb-2">
-                  <label style="padding-right: 10px;">Frequency</label>
+                <div class="form-group mx-sm-1 mb-1">
+                  <label style="padding-right: 10px;">Latitude</label>
                   <input
                     type="text"
                     class="form-control"
                     placeholder="0.0000"
-                    id="frequency"
+                    id="latitude"
+                  />
+                </div>
+                <div class="form-group mx-sm-1 mb-1">
+                  <label style="padding-right: 10px;">Longitude</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="0.0000"
+                    id="longitude"
                   />
                 </div>
                 <button
                   id="add-data"
                   type="button"
-                  class="btn btn-primary mb-2"
+                  class="btn btn-primary mb-1"
                 >
                   <i class="fas fa-save"></i>
                   save
@@ -60,21 +69,12 @@
         <div class="card-body">
           <form class="form-inline">
             <div class="form-group mx-sm-3 mb-2">
-              <label style="padding-right: 10px;">Letter</label>
+              <label style="padding-right: 10px;">Title</label>
               <input
                 type="text"
                 class="form-control"
-                placeholder="A"
-                id="find-letter"
-              />
-            </div>
-            <div class="form-group mx-sm-3 mb-2">
-              <label style="padding-right: 10px;">Frequency</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="0.0000"
-                id="find-frequency"
+                placeholder="title..."
+                id="find-title"
               />
             </div>
           </form>
@@ -83,8 +83,9 @@
       <table class="table table-striped" id="table-data">
         <thead>
           <th>#</th>
-          <th>Letter</th>
-          <th>Frequency</th>
+          <th>Title</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
           <th>Action</th>
         </thead>
         <tbody></tbody>
@@ -93,7 +94,7 @@
     <script src="https://kit.fontawesome.com/a444a4f1de.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-      const API_URL = 'http://localhost:4000/api/data';
+      const API_URL = 'http://localhost:4000/api/maps';
       const token = '<%= token %>';
 
       const listData = data => {
@@ -101,14 +102,16 @@
         data.forEach((item, i) => {
           list += `<tr>
             <td> ${i + 1} </td>
-            <td> ${item.letter} </td>
-            <td> ${item.frequency} </td>
+            <td> ${item.title} </td>
+            <td> ${item.lat} </td>
+            <td> ${item.lng} </td>
             <td>
               <button
                 class="btn btn-success edit-button"
                 data-id="${item._id}"
-                data-letter="${item.letter}"
-                data-frequency="${item.frequency}"
+                data-title="${item.title}"
+                data-latitude="${item.lat}"
+                data-longitude="${item.lng}"
               >
                 <i class="fas fa-pencil-alt"></i> update
               </button>
@@ -136,15 +139,14 @@
       };
 
       const findData = () => {
-        const letter = $('#find-letter').val();
-        const frequency = $('#find-frequency').val();
+        const title = $('#find-title').val();
 
-        if (letter || frequency) {
+        if (title) {
           $.ajax({
             url: `${API_URL}/search`,
             headers: { token: token },
             method: 'POST',
-            data: { letter, frequency },
+            data: { title },
             success: function(result) {
               listData(result);
             }
@@ -156,15 +158,16 @@
 
       const saveData = () => {
         const id = $('#_id').val();
-        const letter = $('#letter').val();
-        const frequency = $('#frequency').val();
+        const title = $('#title').val();
+        const latitude = parseFloat($('#latitude').val());
+        const longitude = parseFloat($('#longitude').val());
 
         if (!id) {
           $.ajax({
             url: API_URL,
             headers: { token: token },
             method: 'POST',
-            data: { letter, frequency },
+            data: { title, lat: latitude, lng: longitude },
             success: function() {
               loadData();
             }
@@ -174,7 +177,7 @@
             url: `${API_URL}/${id}`,
             headers: { token: token },
             method: 'PUT',
-            data: { letter, frequency },
+            data: { title, lat: latitude, lng: longitude },
             success: function() {
               loadData();
             }
@@ -183,8 +186,9 @@
 
         loadData();
         $('#_id').val('');
-        $('#letter').val('');
-        $('#frequency').val('');
+        $('#title').val('');
+        $('#latitude').val('');
+        $('#longitude').val('');
       };
 
       const deleteData = id => {
@@ -198,10 +202,11 @@
         });
       };
 
-      const editData = (id, letter, frequency) => {
+      const editData = (id, title, latitude, longitude) => {
         $('#_id').val(id);
-        $('#letter').val(letter);
-        $('#frequency').val(frequency);
+        $('#title').val(title);
+        $('#latitude').val(latitude);
+        $('#longitude').val(longitude);
 
         if ($('#show-add').is(':hidden')) {
           $('#show-add').toggle();
@@ -224,15 +229,16 @@
           $('#show-add').hide();
         });
 
-        $('#find-letter, #find-frequency').keyup(() => {
+        $('#find-title').keyup(() => {
           findData();
         });
 
         $('#table-data tbody').on('click', '.edit-button', e => {
           const id = $(e.target).attr('data-id');
-          const letter = $(e.target).attr('data-letter');
-          const frequency = $(e.target).attr('data-frequency');
-          editData(id, letter, frequency);
+          const title = $(e.target).attr('data-title');
+          const latitude = $(e.target).attr('data-latitude');
+          const longitude = $(e.target).attr('data-longitude');
+          editData(id, title, latitude, longitude);
         });
 
         $('#table-data tbody').on('click', '.delete-button', e => {
